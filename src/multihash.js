@@ -13,7 +13,7 @@ const bs58 = require('bs58');
  * @param {string} multihash A base58 encoded multihash string
  * @returns {Multihash}
  */
-export function getBytes32FromMultiash(multihash) {
+function getBytes32FromMultiash(multihash) {
   const decoded = bs58.decode(multihash);
 
   return {
@@ -72,6 +72,7 @@ function getMultihashFromContractResponse(response) {
 }
 
 module.exports = {
+  getBytes32FromMultiash,
   getMultihashFromBytes32,
   parseContractResponse,
   getMultihashFromContractResponse
