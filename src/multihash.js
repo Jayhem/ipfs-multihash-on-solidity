@@ -1,4 +1,4 @@
-import bs58 from 'bs58';
+const bs58 = require('bs58');
 
 /**
  * @typedef {Object} Multihash
@@ -29,7 +29,7 @@ export function getBytes32FromMultiash(multihash) {
  * @param {Multihash} multihash
  * @returns {(string|null)} base58 encoded multihash string
  */
-export function getMultihashFromBytes32(multihash) {
+ function getMultihashFromBytes32(multihash) {
   const { digest, hashFunction, size } = multihash;
   if (size === 0) return null;
 
@@ -45,13 +45,14 @@ export function getMultihashFromBytes32(multihash) {
   return bs58.encode(multihashBytes);
 }
 
+
 /**
  * Parse Solidity response in array to a Multihash object
  *
  * @param {array} response Response array from Solidity
  * @returns {Multihash} multihash object
  */
-export function parseContractResponse(response) {
+ function parseContractResponse(response) {
   const [digest, hashFunction, size] = response;
   return {
     digest,
@@ -66,6 +67,12 @@ export function parseContractResponse(response) {
  * @param {array} response Response array from Solidity
  * @returns {string} base58 encoded multihash string
  */
-export function getMultihashFromContractResponse(response) {
+function getMultihashFromContractResponse(response) {
   return getMultihashFromBytes32(parseContractResponse(response));
+}
+
+module.exports = {
+  getMultihashFromBytes32,
+  parseContractResponse,
+  getMultihashFromContractResponse
 }
